@@ -48,4 +48,7 @@ app.get('/v', (req, res) => {
     })
 })
 
+//routes
+require('./routes/auth.route')(app);
+
 app.listen(port, console.log(`Example app listening on port ${port}!`));
