@@ -2,28 +2,31 @@ const mongoose = require('mongoose');
 const { v4: uuidv4 } = require('uuid');
 const mongooseHidden = require('mongoose-hidden')();
 
-const UserSchema = mongoose.Schema({
+const DateSchema = mongoose.Schema({
     _id: {
         type: String,
         default: uuidv4(),
         hide: false,
         hideJSON: false
     },
-    username: {
+    type: {
         type: String,
         required: true
     },
-    email: {
-        type: String,
-        required: true
-    },
-    password: {
-        type: String,
+    property: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Property",
         required: true,
-        hideJSON: true
-    }
+    },
+    timeslots: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Timeslot",
+            required: true
+        }
+    ]
 });
 
 UserSchema.plugin(mongooseHidden)
 
-module.exports = mongoose.model('user', UserSchema, 'user');
+module.exports = mongoose.model('dates', DateSchema, 'date');
