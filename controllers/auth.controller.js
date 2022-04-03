@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 exports.signUpWithEmail = async (req, res) => {
 
     try {
-        const { username, email, password } = req.body;
+        const { username, email, password, type } = req.body;
 
         //check required fields
         if (!(username && email && password)) {
@@ -34,7 +34,8 @@ exports.signUpWithEmail = async (req, res) => {
         const user = await User.create({
             username,
             email: email.toLowerCase(),
-            password: encryptedPassword
+            password: encryptedPassword,
+            type
         });
 
         //create token
@@ -84,7 +85,7 @@ exports.signInWithEmail = async (req, res) => {
             )
 
             //user
-            return res.status(200).send({"accessToken" : accessToken, "refreshToken" : accessToken})
+            return res.status(200).send({ "accessToken": accessToken, "refreshToken": accessToken })
         };
         res.status(403).send("Access Denied");
     } catch (err) {

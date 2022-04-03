@@ -2,13 +2,9 @@ const mongoose = require('mongoose');
 const { v4: uuidv4 } = require('uuid');
 const mongooseHidden = require('mongoose-hidden')();
 
+const InvitationsSchema = new mongoose.Schema({ user: String });
+
 const DateSchema = mongoose.Schema({
-    _id: {
-        type: String,
-        default: uuidv4(),
-        hide: false,
-        hideJSON: false
-    },
     type: {
         type: String,
         required: true
@@ -24,9 +20,14 @@ const DateSchema = mongoose.Schema({
             ref: "Timeslot",
             required: true
         }
-    ]
+    ],
+    invitations: [InvitationsSchema],
+    user_id: {
+        type: String,
+        hideJSON: true
+    }
 });
 
-UserSchema.plugin(mongooseHidden)
+DateSchema.plugin(mongooseHidden)
 
 module.exports = mongoose.model('dates', DateSchema, 'date');

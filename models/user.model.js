@@ -21,6 +21,10 @@ const UserSchema = mongoose.Schema({
         type: String,
         required: true,
         hideJSON: true
+    },
+    type: {
+        type: String,
+        required: true
     }
 });
 

@@ -3,10 +3,6 @@ const { v4: uuidv4 } = require('uuid');
 const mongooseHidden = require('mongoose-hidden')();
 
 const PropertySchema = mongoose.Schema({
-    _id: {
-        type: String,
-        default: uuidv4(),
-    },
     name: {
         type: String,
     },
@@ -18,7 +14,7 @@ const PropertySchema = mongoose.Schema({
             type: String,
         },
         postal_code: {
-          type: String,  
+            type: String,
         },
         city: {
             type: String

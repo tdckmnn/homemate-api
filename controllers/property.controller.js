@@ -39,3 +39,24 @@ exports.getAllProperty = async (req, res) => {
         console.log(err);
     }
 }
+
+exports.getSingleProperty = async (req, res) => {
+
+    //get userid from auth handler
+    const user_id = req.userId;
+
+    try {
+        //get id from request path (GET: /property/{id})
+        const property_id = req.params.id;
+
+        const property = await Property.findOne({ user_id: user_id, _id: property_id })
+
+        if (!property) {
+            res.status(204).send("Can not find property with this specific id");
+        }
+
+        res.status(200).send(property.toJSON());
+    } catch (err) {
+        console.log(err);
+    }
+}
