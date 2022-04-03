@@ -3,12 +3,6 @@ const { v4: uuidv4 } = require('uuid');
 const mongooseHidden = require('mongoose-hidden')();
 
 const UserSchema = mongoose.Schema({
-    _id: {
-        type: String,
-        default: uuidv4(),
-        hide: false,
-        hideJSON: false
-    },
     username: {
         type: String,
         required: true

@@ -2,8 +2,6 @@ const mongoose = require('mongoose');
 const { v4: uuidv4 } = require('uuid');
 const mongooseHidden = require('mongoose-hidden')();
 
-const InvitationsSchema = new mongoose.Schema({ user: String });
-
 const DateSchema = mongoose.Schema({
     type: {
         type: String,
@@ -16,15 +14,38 @@ const DateSchema = mongoose.Schema({
     },
     timeslots: [
         {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Timeslot",
-            required: true
+            start: {
+                type: String,
+                required: true,
+            },
+            end: {
+                type: String,
+                required: true,
+            },
+            status: {
+                type: String,
+                required: false,
+                default: "CREATED"
+            },
+            bookedBy: {
+                type: String,
+                required: false,
+            },
         }
     ],
-    invitations: [InvitationsSchema],
+    invitations: [
+        {
+            user: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "User",
+                required: true,
+            }
+        }
+    ],
     user_id: {
-        type: String,
-        hideJSON: true
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
     }
 });
 
