@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { v4: uuidv4 } = require('uuid');
 const mongooseHidden = require('mongoose-hidden')();
 
 const DateSchema = mongoose.Schema({
@@ -25,11 +24,12 @@ const DateSchema = mongoose.Schema({
             status: {
                 type: String,
                 required: false,
-                default: "CREATED"
+                default: "FREE"
             },
             bookedBy: {
-                type: String,
-                required: false,
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "User",
+                required: true
             },
         }
     ],
@@ -45,10 +45,16 @@ const DateSchema = mongoose.Schema({
     user_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-        required: true,
+        required: true
     }
 });
 
 DateSchema.plugin(mongooseHidden)
 
-module.exports = mongoose.model('dates', DateSchema, 'date');
+DateSchema.set('toJSON', {
+    virtuals: true,
+    versionKey: false,
+    transform: function (doc, ret) { delete ret._id, delete ret.user_id }
+});
+
+module.exports = mongoose.model('Date', DateSchema, 'date');

@@ -24,4 +24,4 @@ const UserSchema = mongoose.Schema({
 
 UserSchema.plugin(mongooseHidden)
 
-module.exports = mongoose.model('user', UserSchema, 'user');
+module.exports = mongoose.model('User', UserSchema, 'user');

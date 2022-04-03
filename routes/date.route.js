@@ -5,8 +5,11 @@ module.exports = (app) => {
     //Create a new property (with name)
     app.post('/date', auth, date.createDate);
 
-    // Login with credentials
-    //app.post('/auth/signin', auth.signInWithEmail);
+    //Create a new property (with name)
+    app.get('/date', auth, date.getAllDates);
+
+    //Book Timeslot
+    app.put('/date/:id/:timeslot', auth, date.bookTimeslot);
 
     //Refresh the user token with the refresh token -> will response new access token and refresh token
     //app.get("/auth/refreshToken", auth, auth.getRefreshToken);

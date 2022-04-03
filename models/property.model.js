@@ -43,4 +43,4 @@ PropertySchema.set('toJSON', {
     transform: function (doc, ret) { delete ret._id, delete ret.user_id }
 });
 
-module.exports = mongoose.model('properties', PropertySchema, 'property');
+module.exports = mongoose.model('Property', PropertySchema, 'property');
