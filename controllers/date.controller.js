@@ -31,7 +31,7 @@ exports.getAllDates = async (req, res) => {
         const dates = await Date.find({ user_id: user_id }).populate({ path: "property" })
 
         if (!dates.length) {
-            return res.status(204).json(dates);
+            res.status(204).json(dates);
         }
 
         res.status(200).json(dates);
@@ -52,7 +52,7 @@ exports.bookTimeslot = async (req, res) => {
         const { status } = req.body;
 
         //const date = await Date.findOne({ user_id: user_id, _id: date_id })
-
+        
         await Date.findOneAndUpdate(
             { _id: date_id, "timeslots._id": timeslot_id }, // filter arguments
             // update data
@@ -74,6 +74,7 @@ exports.bookTimeslot = async (req, res) => {
         }).catch(error => {
             console.log(error);
         })
+
     } catch (err) {
         console.log(err);
     }
